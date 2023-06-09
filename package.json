@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mui/utils": "^5.13.1",
+    "axios": "^1.4.0"
+  }
+}

@@ -1,3 +1,10 @@
 .tableContainer{
   padding : 2rem 3rem;
 }
+
+.actions{
+  display:flex;
+  flex-direction:row;
+  justify-content:centre;
+  align-items:centre;
+}
