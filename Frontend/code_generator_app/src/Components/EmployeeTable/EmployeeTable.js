@@ -50,7 +50,13 @@ const columns = [
     renderCell: (params) => {
       return (
         <Stack direction="row" spacing={2}>
-          <Button variant="contained" color="primary" onClick={() => {}}>
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={() => {
+              window.location.href = "/edit-employee";
+            }}
+          >
             Edit
           </Button>
           <Button variant="contained" color="error" onClick={() => {}}>
@@ -59,7 +65,7 @@ const columns = [
         </Stack>
       );
     },
-  },
+  }
 ];
 
 function EmployeeTable({ employeeList }) {
@@ -67,8 +73,9 @@ function EmployeeTable({ employeeList }) {
     <>
       <div
         style={{
+          display:"flex",
+          justifyContent:"center",
           height: "80vh",
-          width: "100%",
           margin: "1rem",
           backgroundColor: "white",
         }}

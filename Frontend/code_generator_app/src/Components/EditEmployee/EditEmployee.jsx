@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import "./editEmployee.css";
+import "./EditEmployee.css";
+import { Stack } from "@mui/material";
 
 function EditEmployee() {
   const [name, setName] = useState("");
@@ -11,6 +12,12 @@ function EditEmployee() {
     event.preventDefault();
 
     editEmployee(name, email, phone);
+  };
+
+  const handleBack = (event) => {
+    event.preventDefault();
+
+    window.location.href = "/";
   };
 
   return (
@@ -46,14 +53,24 @@ function EditEmployee() {
             onChange={(event) => setPhone(event.target.value)}
           />
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          onCLick={handleSubmit}
-        >
-          Add
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            color="warning"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+        </Stack>
       </div>
     </div>
   );
