@@ -6,21 +6,6 @@ import axios from "axios";
 
 function Home({ json }) {
   const [employeeList, setEmployeeList] = useState([
-    {
-      id: 1,
-      EMPNO: "dummy-EMPNO",
-      FIRSTNAME: "dummy-FIRSTNAME",
-      LASTNAME: "dummy-LASTNAME",
-      PHONENO: "dummy-PHONENO",
-      WORKDEPT: "dummy-WORKDEPT",
-      HIREDATE: "dummy-HIREDATE",
-      JOB: "dummy-JOB",
-      EDLEVEL: "dummy-EDLEVEL",
-      BIRTHDATE: "dummy-BIRTHDATE",
-      SEX: "dummy-SEX",
-      SALARY: "dummy-SALARY",
-      BONUS: "dummy-BONUS",
-    },
   ]);
 
   useEffect(() => {
