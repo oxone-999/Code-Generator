@@ -21,18 +21,20 @@ export const createTableIfNotExits = async (req, res, next) => {
       // create a new table
       console.log(`Table '${tableName}' does not exist.`);
       let table = req.body.table;
+      console.log("Post Middleware check started", table);
       let queryString = "";
       Object.keys(table).forEach((key) => {
         queryString += `${key} VARCHAR(255), `;
       });
-      const query = `USE code_generator; CREATE TABLE ${tableName} (id INT NOT NULL AUTO_INCREMENT, ${queryString} PRIMARY KEY (id))`;
-      console.log(queryString, query);
+      await conn.query("USE code_generator;");
+      const query = `CREATE TABLE ${tableName} (id INT NOT NULL AUTO_INCREMENT, ${queryString} PRIMARY KEY (id))`;
+      console.log(query);
       await conn.query(query);
       console.log("Table created");
       next();
     }
   } catch (er) {
-    // console.log(er);
+    console.log(er);
     res.status(500).json({ message: er.message });
   }
 };

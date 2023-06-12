@@ -4,15 +4,32 @@ import Stack from "@mui/material/Stack";
 import EmployeeTable from "../EmployeeTable/EmployeeTable";
 import axios from "axios";
 
-function Home() {
-  const [employeeList, setEmployeeList] = useState([]);
+function Home({ json }) {
+  const [employeeList, setEmployeeList] = useState([
+    {
+      id: 1,
+      EMPNO: "dummy-EMPNO",
+      FIRSTNAME: "dummy-FIRSTNAME",
+      LASTNAME: "dummy-LASTNAME",
+      PHONENO: "dummy-PHONENO",
+      WORKDEPT: "dummy-WORKDEPT",
+      HIREDATE: "dummy-HIREDATE",
+      JOB: "dummy-JOB",
+      EDLEVEL: "dummy-EDLEVEL",
+      BIRTHDATE: "dummy-BIRTHDATE",
+      SEX: "dummy-SEX",
+      SALARY: "dummy-SALARY",
+      BONUS: "dummy-BONUS",
+    },
+  ]);
 
   useEffect(() => {
     const getEmployeeList = async () => {
-      const response = await axios.get(
-        "https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001"
-      );
-      setEmployeeList(response.data);
+      axios
+        .get("?tableName=reactTable")
+        .then((res) => res.data)
+        .then((res) => setEmployeeList(res))
+        .catch((res) => setEmployeeList([]));
     };
     getEmployeeList();
   }, []);
@@ -29,7 +46,7 @@ function Home() {
           Add Employee
         </Button>
       </Stack>
-      <EmployeeTable employeeList={employeeList} />
+      <EmployeeTable employeeList={employeeList} json={json} />
     </div>
   );
 }

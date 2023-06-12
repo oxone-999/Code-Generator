@@ -7,20 +7,26 @@ import { deleteRequest } from "./controllers/deleteRequest.js";
 import { checkTableExits } from "./middlewares/checkTableExists.js";
 import { createTableIfNotExits } from "./middlewares/createTableIfNotExists.js";
 import { getSingleEntry } from "./controllers/getSingleEntry.js";
+import cors from 'cors'
 
 const app = express();
 
 // app middlewares
 app.use(express.json());
+app.use(cors());
 
 // routes
 app.post("/api", createTableIfNotExits, postRequest);
-
+//*Usage -  /api?tableName={tableName}, body: {table: {json}}
 app.get("/api", checkTableExits, getRequest);
+//*Usage - /api?tableName={tableName}
 app.get("/api/1", checkTableExits, getSingleEntry);
+//*Usage - /api/1/?tableName={tableName}&id={id}
 
 app.put("/api", checkTableExits, putRequest);
+//*Usage -  /api?tableName={tableName}, body: {table: {json}}
 app.delete("/api", checkTableExits, deleteRequest);
+//*Usage - /api/?tableName={tableName}&id={id}
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API");

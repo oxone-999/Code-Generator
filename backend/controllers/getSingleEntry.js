@@ -13,6 +13,7 @@ export const getSingleEntry = async (req, res) => {
     console.log("====================================");
     res.status(200).json(rows);
   } catch (er) {
+    console.log(er);
     res.status(500).json({ message: er.message });
   }
 };

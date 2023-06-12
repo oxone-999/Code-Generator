@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import "./EditEmployee.css";
 import { Stack } from "@mui/material";
+import axios from "axios";
+import { useParams } from "react-router";
 
-function EditEmployee() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
+function EditEmployee({ json }) {
+  const [employee, setEmployee] = useState({});
+  const { id } = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    editEmployee(name, email, phone);
+    axios
+      .put(`?tableName=reactTable&id=${id}`, { table: employee })
+      .then((res) => {
+        window.location.href = "/";
+      });
+    console.log(employee);
   };
 
   const handleBack = (event) => {
@@ -20,48 +24,55 @@ function EditEmployee() {
     window.location.href = "/";
   };
 
+  useEffect(() => {
+    axios
+      .get(`1/?tableName=reactTable&id=${id}`)
+      .then((res) => res.data)
+      .then((res) => {
+        console.log(employee, res);
+        setEmployee({ ...res[0] });
+      });
+  }, []);
+
   return (
-    <div>
+    <form>
       <div className="editEmployee">
         <div>
           <h1 className="editEmployeeHeader">Edit Employee Details</h1>
         </div>
-        <div>
-          <label for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </div>
-        <div>
-          <label for="phone">Phone</label>
-          <input
-            type="tel"
-            id="phone"
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
-          />
-        </div>
+        {json.map((e) => (
+          <>
+            <div>
+              <label for="name">{e.name}</label>
+              <input
+                type="text"
+                id="name"
+                value={employee[e.name]}
+                onChange={(event) =>
+                  setEmployee({ ...employee, [e.name]: event.target.value })
+                }
+                required
+              />
+            </div>
+          </>
+        ))}
         <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            color="warning"
+          <button
             type="submit"
             onClick={handleSubmit}
+            style={{
+              backgroundColor: "purple",
+              color: "#fff",
+              padding: "8px",
+              border: 0,
+              borderRadius: "2px",
+              paddingLeft: "20px",
+              paddingRight: "20px",
+              cursor: "pointer",
+            }}
           >
-            Save
-          </Button>
+            ADD
+          </button>
           <Button
             variant="contained"
             color="primary"
@@ -72,12 +83,8 @@ function EditEmployee() {
           </Button>
         </Stack>
       </div>
-    </div>
+    </form>
   );
 }
-
-const editEmployee = (name, email, phone) => {
-  // TODO: Add the employee details to the database
-};
 
 export default EditEmployee;
