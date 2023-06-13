@@ -4,18 +4,30 @@ import { Button } from "@mui/material";
 import { Stack } from "@mui/material";
 import axios from "axios";
 
-
 function EntityTable({ entityList, entityJSON }) {
   const extractCoulumnsFromJson = () => {
     const cols = [];
     for (const e of entityJSON.fields) {
-      cols.push({
+      const column = {
         field: e.name,
         headerName: e.name,
         width: 100,
         valueGetter: (params) => `${params.row[e.name]}`,
-      });
+      };
+      if (e.type.toLowerCase() === "date") {
+        column.type = "date";
+      } else if (e.type.toLowerCase() === "number") {
+        column.type = "number";
+      } else if (e.type.toLowerCase() === "boolean") {
+        column.type = "boolean";
+      } else if (e.type.toLowerCase() === "string") {
+        column.type = "string";
+      } else if(e.type.toLowerCase() === "integer") {
+        column.type = "number";
+      }
+      cols.push(column);
     }
+
     // Actions
     cols.push({
       field: "Actions",
@@ -38,7 +50,9 @@ function EntityTable({ entityList, entityJSON }) {
               color="error"
               onClick={() => {
                 axios
-                  .delete(`?tableName=reactTable7entity=${entityJSON.name}&id=${params.row["id"]}`)
+                  .delete(
+                    `?tableName=reactTable7entity=${entityJSON.name}&id=${params.row["id"]}`
+                  )
                   .then(window.location.reload());
               }}
             >

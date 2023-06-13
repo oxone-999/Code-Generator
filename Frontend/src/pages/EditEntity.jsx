@@ -35,7 +35,7 @@ export const EditEntity = () => {
       .then((res) => {
         setSelectedEntity({ ...res[0] });
       });
-  }, []);
+  }, [id]);
 
   return (
     <form>

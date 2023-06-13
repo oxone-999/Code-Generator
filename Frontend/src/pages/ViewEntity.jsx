@@ -22,7 +22,7 @@ export  const ViewEntity = () => {
           .catch((res) => setEntityList([]));
       };
       getEntityList();
-    }, []);
+    }, [entityName]);
     
     const handleAddEntity = () => {
       window.location.href = `/add/${entityName}`;
