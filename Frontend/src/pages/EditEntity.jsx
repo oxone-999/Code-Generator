@@ -18,6 +18,7 @@ export const EditEntity = () => {
     axios
       .put(`?tableName=reactTable&id=${id}`, { table:entityName })
       .then((res) => {
+        
         window.location.href = "/";
       });
   };
