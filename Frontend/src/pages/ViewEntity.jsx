@@ -4,7 +4,7 @@ import { json } from "../inputJson";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import EmployeeTable from "../Components/EmployeeTable/EmployeeTable";
+import EntityTable from "../Components/EntityTable/EntityTable";
 
 export  const ViewEntity = () => {
   
@@ -38,7 +38,7 @@ export  const ViewEntity = () => {
         Add {entityName}
       </Button>
     </Stack>
-    <EmployeeTable entityList={entityList} entityJSON={entityJSON} />
+    <EntityTable entityList={entityList} entityJSON={entityJSON} />
     </div>
     </>
   );

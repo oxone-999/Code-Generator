@@ -1,5 +1,5 @@
 {
-  "name": "code_generator_app",
+  "name": "entity-management-crud",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

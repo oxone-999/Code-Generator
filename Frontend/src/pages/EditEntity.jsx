@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import "../Components/AddEmployee/AddEmployee.css";
+import "../styles/EditEntity.css";
 import { Stack } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router";
@@ -39,9 +39,9 @@ export const EditEntity = () => {
 
   return (
     <form>
-      <div className="editEmployee">
+      <div className="editEntity">
         <div>
-          <h1 className="editEmployeeHeader">Edit {entityName} Details</h1>
+          <h1 className="editEntityHeader">Edit {entityName} Details</h1>
         </div>
         {entityJSON.fields.map((e) => (
           <>

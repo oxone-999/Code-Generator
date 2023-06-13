@@ -1,4 +1,4 @@
-.addEmployee input {
+.addEntity input {
 	width: 95%;
 	padding: 12px 20px;
 	margin: 8px 0;
@@ -10,17 +10,17 @@
 	text-align: left;
 }
 
-.addEmployee input:focus {
+.addEntity input:focus {
 	border: 1px solid #a8a8a8;
 }
 
-.addEmployee input[type=submit],
-.addEmployee input[type=button] {
+.addEntity input[type=submit],
+.addEntity input[type=button] {
 	float: right;
 	margin: -20px 20px 10px 0px;
 }
 
-.addEmployee {
+.addEntity {
 	border-radius: 5px;
 	background-color: #f8f8f8;
 	padding: 40px;
@@ -31,6 +31,6 @@
 	box-shadow: 1px 1px 5px #888888;
 }
 
-.addEmployeeHeader {
+.addEntityHeader {
 	text-align: center;
 }

@@ -1,42 +1,51 @@
-import React, { useState } from "react";
+import React,{useState} from 'react'
+import { useParams } from 'react-router';
+import axios from 'axios';
 import Button from "@mui/material/Button";
-import "./AddEmployee.css";
+import "../styles/AddEntity.css";
 import { Stack } from "@mui/material";
-import axios from "axios";
+import {json} from '../inputJson';
 
-function AddEmployee({ json }) {
-  const [employee, setEmployee] = useState({});
+export const AddEntity = () => {
+    const { entityName } = useParams();
+    const entityJSON = json.Entities.filter((e) => e.name === entityName)[0];
+    
+    const [selectedEntity, setSelectedEntity] = useState({});
+   
+    const handleSubmit = (event) => {
+      event.preventDefault();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post("?tableName=reactTable", { table: employee }).then((res) => {
+      axios.post(`?tableName=reactTable&entity=${entityName}`, { table: entityName }).then((res) => {
+        window.location.href = "/";
+      });
+      console.log(selectedEntity);
+    };
+      
+    const handleBack = (event) => {
+      event.preventDefault();
+  
       window.location.href = "/";
-    });
-    console.log(employee);
-  };
+    }; 
+    
 
-  const handleBack = (event) => {
-    event.preventDefault();
-
-    window.location.href = "/";
-  };
 
   return (
+       
     <form>
-      <div className="addEmployee">
+      <div className="addEntity">
         <div>
-          <h1 className="addEmployeeHeader">Add Employee Details</h1>
+          <h1 className="addEntityHeader">Add {entityName} Details</h1>
         </div>
-        {json.map((e) => (
+        {entityJSON.fields.map((e) => (
           <>
             <div>
               <label for="name">{e.name}</label>
               <input
                 type="text"
                 id="name"
-                value={employee.name}
+                value={selectedEntity.name}
                 onChange={(event) =>
-                  setEmployee({ ...employee, [e.name]: event.target.value })
+                  setSelectedEntity({ ...selectedEntity, [e.name]: event.target.value })
                 }
                 required
               />
@@ -71,7 +80,9 @@ function AddEmployee({ json }) {
         </Stack>
       </div>
     </form>
-  );
+  )
 }
 
-export default AddEmployee;
+
+
+

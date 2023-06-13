@@ -5,7 +5,7 @@ import { Stack } from "@mui/material";
 import axios from "axios";
 
 
-function EmployeeTable({ entityList, entityJSON }) {
+function EntityTable({ entityList, entityJSON }) {
   const extractCoulumnsFromJson = () => {
     const cols = [];
     for (const e of entityJSON.fields) {
@@ -76,4 +76,4 @@ function EmployeeTable({ entityList, entityJSON }) {
   );
 }
 
-export default EmployeeTable;
+export default EntityTable;
