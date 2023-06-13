@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add/:entityName" element={<AddEntity/>} />
-        <Route path="/edit/:entityName" element={<EditEntity/>} />
+        <Route path="/edit/:entityName/:id" element={<EditEntity/>} />
         <Route path="/view/:entityName" element={<ViewEntity/>} />
       </Routes>
     </Router>
