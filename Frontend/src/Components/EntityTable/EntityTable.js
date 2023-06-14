@@ -13,18 +13,8 @@ function EntityTable({ entityList, entityJSON }) {
         headerName: e.name,
         width: 100,
         valueGetter: (params) => `${params.row[e.name]}`,
+        type : e.type,
       };
-      if (e.type.toLowerCase() === "date") {
-        column.type = "date";
-      } else if (e.type.toLowerCase() === "number") {
-        column.type = "number";
-      } else if (e.type.toLowerCase() === "boolean") {
-        column.type = "boolean";
-      } else if (e.type.toLowerCase() === "string") {
-        column.type = "string";
-      } else if(e.type.toLowerCase() === "integer") {
-        column.type = "number";
-      }
       cols.push(column);
     }
 
