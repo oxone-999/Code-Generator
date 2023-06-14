@@ -38,7 +38,7 @@ export const AddEntity = () => {
     axios
       .post(`?tableName=reactTable&entity=${entityName}`, { table: entityName })
       .then((res) => {
-        window.location.href = "/";
+        window.location.href = `/view/${entityName}`;
       });
     console.log(selectedEntity);
   };
@@ -46,7 +46,7 @@ export const AddEntity = () => {
   const handleBack = (event) => {
     event.preventDefault();
 
-    window.location.href = "/";
+    window.location.href = `/view/${entityName}`;
   };
 
   return (

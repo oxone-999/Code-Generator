@@ -19,14 +19,14 @@ export const EditEntity = () => {
       .put(`?tableName=reactTable&id=${id}`, { table:entityName })
       .then((res) => {
         
-        window.location.href = "/";
+        window.location.href = `/view/${entityName}`;
       });
   };
 
   const handleBack = (event) => {
     event.preventDefault();
 
-    window.location.href = "/";
+    window.location.href = `/view/${entityName}`;
   };
 
   useEffect(() => {
