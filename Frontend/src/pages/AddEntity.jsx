@@ -63,6 +63,7 @@ export const AddEntity = () => {
                 <input
                   type="text"
                   id="name"
+                  placeholder={`Enter ${e.name.toLowerCase()} here`}
                   value={selectedEntity.name}
                   onChange={(event) => handleInputChange(e, event.target)}
                   required
@@ -70,6 +71,7 @@ export const AddEntity = () => {
               ) : (
                 <DatePicker
                   selected={selectedDate}
+                  placeholderText={`Enter ${e.name.toLowerCase()} here`}
                   onChange={(event) => handleDateChange(e, event)}
                 />
               )}
@@ -77,14 +79,14 @@ export const AddEntity = () => {
           </>
         ))}
         <Stack direction="row" spacing={2}>
-          <button
+          <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             type="submit"
             onClick={handleSubmit}
           >
             ADD
-          </button>
+          </Button>
           <Button
             variant="contained"
             color="primary"

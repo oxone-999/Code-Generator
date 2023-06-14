@@ -5,9 +5,11 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import EntityTable from "../Components/EntityTable/EntityTable";
+import "../styles/ViewEntity.css";
 
 export const ViewEntity = () => {
   const { entityName } = useParams();
+
   const entityJSON = json.Entities.filter((e) => e.name === entityName)[0];
 
   const [entityList, setEntityList] = useState([]);
