@@ -92,10 +92,7 @@ export const AddEntity = () => {
           </div>
         ))}
         <Stack direction="row" spacing={2}>
-          <button
-            className="action-btn"
-            type="submit"
-          >
+          <button className="action-btn" type="submit">
             ADD
           </button>
           <Button
