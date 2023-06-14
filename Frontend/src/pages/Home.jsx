@@ -11,7 +11,7 @@ export const Home = () => {
   const navigate = useNavigate();
   return (
     <>
-      <h1>List of Entitities</h1>
+      <h1>List of Entities</h1>
 
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {json.Entities.map((entity) => (

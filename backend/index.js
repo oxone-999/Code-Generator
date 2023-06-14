@@ -5,9 +5,9 @@ import { postRequest } from "./controllers/postRequest.js";
 import { putRequest } from "./controllers/putRequest.js";
 import { deleteRequest } from "./controllers/deleteRequest.js";
 import { checkTableExits } from "./middlewares/checkTableExists.js";
-import { createTableIfNotExits } from "./middlewares/createTableIfNotExists.js";
 import { getSingleEntry } from "./controllers/getSingleEntry.js";
-import cors from 'cors'
+import cors from "cors";
+import { initializeDbFromJson } from "./db/initializedDb.js";
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 // routes
-app.post("/api", createTableIfNotExits, postRequest);
+app.post("/api", checkTableExits, postRequest);
 //*Usage -  /api?tableName={tableName}, body: {table: {json}}
 app.get("/api", checkTableExits, getRequest);
 //*Usage - /api?tableName={tableName}
@@ -37,6 +37,7 @@ console.log("connectiong to the db");
 connectDb()
   .then((conn) => {
     console.log("db connection established");
+    initializeDbFromJson();
   })
   .catch((er) => {
     console.log("Error connecting db");

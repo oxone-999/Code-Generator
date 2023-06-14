@@ -14,31 +14,24 @@ export const AddEntity = () => {
   const [selectedEntity, setSelectedEntity] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleDateChange = (e, date) => {
-    setSelectedDate(date);
-    setSelectedEntity({ ...selectedEntity, [e.name]: date });
-  };
+  // const handleDateChange = (e, date) => {
+  //   setSelectedDate(date);
+  //   setSelectedEntity({ ...selectedEntity, [e.name]: date });
+  // };
 
-  const handleInputChange = (e, target) => {
-    // const inputType = target.type.toLowerCase();
-    // const requiredType = e.type.toLowerCase();
-    // if (inputType !== requiredType) {
-    //   // show alert box at top
-    //   window.alert(inputType + "  " + requiredType);
-    //   // window.alert("input " + requiredType + " is required");
-    //   target.value = "";
-    //   return;
-    // }
-    setSelectedEntity({ ...selectedEntity, [e.name]: target.value });
+  const handleInputChange = (e) => {
+    let { name, value } = e.target;
+    console.log(name, value);
+    setSelectedEntity({ ...selectedEntity, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axios
-      .post(`?tableName=reactTable&entity=${entityName}`, { table: entityName })
+      .post(`?tableName=${entityName}`, { table: selectedEntity })
       .then((res) => {
-        window.location.href = "/";
+        window.location.href = `/view/${entityName}`;
       });
     console.log(selectedEntity);
   };
@@ -46,42 +39,62 @@ export const AddEntity = () => {
   const handleBack = (event) => {
     event.preventDefault();
 
-    window.location.href = "/";
+    window.location.href = `/view/${entityName}`;
+  };
+
+  const fetchInputTypeFromJSON = (inputType) => {
+    switch (inputType) {
+      case "INTEGER":
+        return "number";
+      case "TEXT":
+        return "text";
+      case "DATE":
+        return "date";
+      case "DOUBLE":
+        return "number";
+      case "BOOLEAN":
+        return "checkbox";
+      default:
+        break;
+    }
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="addEntity">
         <div>
           <h1 className="addEntityHeader">Add {entityName} Details</h1>
         </div>
         {entityJSON.fields.map((e) => (
-          <>
-            <div>
-              <label for="name">{e.name}</label>
-              {e.type.toLowerCase() !== "date" ? (
-                <input
-                  type="text"
-                  id="name"
-                  value={selectedEntity.name}
-                  onChange={(event) => handleInputChange(e, event.target)}
-                  required
-                />
-              ) : (
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={(event) => handleDateChange(e, event)}
-                />
-              )}
-            </div>
-          </>
+          <div key={e.name}>
+            <label for="name">{e.name}</label>
+            {e.optional === "N" && <p className="required-label">Required</p>}
+            {e.type.toLowerCase() !== "double" ? (
+              <input
+                type={fetchInputTypeFromJSON(e.type)}
+                id={e.name}
+                name={e.name}
+                value={selectedEntity[e.name]}
+                onChange={(event) => handleInputChange(event)}
+                required={e.optional === "N"}
+              />
+            ) : (
+              <input
+                type="number"
+                step="any"
+                id={e.name}
+                name={e.name}
+                value={selectedEntity.name}
+                onChange={(event) => handleInputChange(event)}
+                required={e.optional === "N"}
+              />
+            )}
+          </div>
         ))}
         <Stack direction="row" spacing={2}>
           <button
-            variant="contained"
-            color="primary"
+            className="action-btn"
             type="submit"
-            onClick={handleSubmit}
           >
             ADD
           </button>

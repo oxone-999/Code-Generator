@@ -1,4 +1,5 @@
 import { conn } from "../db/dbconn.js";
+import { jsonBigIntParser } from "../utils/jsonBigIntParser.js";
 
 export const postRequest = async (req, res) => {
   try {
@@ -21,9 +22,11 @@ export const postRequest = async (req, res) => {
     await conn.query(query);
 
     let rows = await conn.query(`SELECT * FROM ${tableName}`);
-    res.status(200).json(rows);
+    console.log(rows);
+    res.status(200).json(jsonBigIntParser(rows));
   } catch (er) {
     console.log(er);
     res.status(500).json({ message: er.message });
   }
 };
+  

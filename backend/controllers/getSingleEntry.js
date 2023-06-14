@@ -1,4 +1,5 @@
 import { conn } from "../db/dbconn.js";
+import { jsonBigIntParser } from "../utils/jsonBigIntParser.js";
 
 export const getSingleEntry = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ export const getSingleEntry = async (req, res) => {
     console.log("====================================");
     console.log(rows);
     console.log("====================================");
-    res.status(200).json(rows);
+    res.status(200).json(jsonBigIntParser(rows));
   } catch (er) {
     console.log(er);
     res.status(500).json({ message: er.message });

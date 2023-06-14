@@ -3,8 +3,31 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { Stack } from "@mui/material";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function EntityTable({ entityList, entityJSON }) {
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Confirm delete the entity from database?",
+      showDenyButton: true,
+      confirmButtonText: "Delete",
+      denyButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`?tableName=${entityJSON.name}&id=${id}`)
+          .then(() => {
+            Swal.fire("Deleted!", "", "success");
+            window.location.reload();
+          })
+          .catch((er) => {
+            Swal.fire("Error", er.message, "error");
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Cancelled", "", "info");
+      }
+    });
+  };
   const extractCoulumnsFromJson = () => {
     const cols = [];
     for (const e of entityJSON.fields) {
@@ -12,17 +35,20 @@ function EntityTable({ entityList, entityJSON }) {
         field: e.name,
         headerName: e.name,
         width: 100,
-        valueGetter: (params) => `${params.row[e.name]}`,
+        valueGetter: (params) =>
+          e.type.toLowerCase() === "date"
+            ? `${params.row[e.name].split("T")[0]}`
+            : `${params.row[e.name]}`,
       };
       if (e.type.toLowerCase() === "date") {
-        column.type = "date";
+        // column.type = "date";
       } else if (e.type.toLowerCase() === "number") {
         column.type = "number";
       } else if (e.type.toLowerCase() === "boolean") {
         column.type = "boolean";
       } else if (e.type.toLowerCase() === "string") {
         column.type = "string";
-      } else if(e.type.toLowerCase() === "integer") {
+      } else if (e.type.toLowerCase() === "integer") {
         column.type = "number";
       }
       cols.push(column);
@@ -49,11 +75,7 @@ function EntityTable({ entityList, entityJSON }) {
               variant="contained"
               color="error"
               onClick={() => {
-                axios
-                  .delete(
-                    `?tableName=reactTable7entity=${entityJSON.name}&id=${params.row["id"]}`
-                  )
-                  .then(window.location.reload());
+                handleDelete(params.row["id"]);
               }}
             >
               Delete

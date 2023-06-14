@@ -8,7 +8,7 @@ export const deleteRequest = async (req, res) => {
     let query = `DELETE FROM ${tableName} WHERE id = ${id}`;
 
     let deleted = await conn.query(query);
-
+    console.log(deleted);
     res
       .status(200)
       .json({ deleted: deleted.affectedRows === 0 ? false : true });
